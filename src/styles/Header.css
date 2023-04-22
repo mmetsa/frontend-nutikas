@@ -1,0 +1,47 @@
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	background-color: #1753d3;
+	color: #fff;
+	padding: 1rem;
+}
+
+.menu-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.menu-item {
+	margin-left: 4rem;
+	cursor: pointer;
+}
+
+.menu-item-coins {
+	margin-left: 1rem;
+	cursor: pointer;
+}
+
+.progress-container {
+	position: relative;
+	width: 200px;
+	margin-left: 1rem;
+	margin-top: 5px;
+}
+
+.xp-progress-bar {
+	height: 10px;
+	background-color: #fff;
+}
+
+.progress-level-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}

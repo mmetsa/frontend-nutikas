@@ -1,0 +1,4 @@
+/* Define your active menu item styles */
+.active {
+    font-weight: bold; /* Set the desired font weight for the active menu item */
+}
