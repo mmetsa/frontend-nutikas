@@ -51,12 +51,12 @@ function Header() {
 										)}
 									</Overlay>
 									<ProgressBar className="xp-progress-bar">
-										<ProgressBar striped variant="warning" now={progressPercentage} key={1} />
+										<ProgressBar striped variant="custom-yellow" now={progressPercentage} key={1} />
 										<div className="progress-level-text">Level: {auth.getCurrentLvl()}</div>
 									</ProgressBar>
 								</div>
 								<div className="menu-item-coins">
-									<FaCoins size={20} style={{color: 'yellow'}}></FaCoins> <label style={{color: 'white'}}>{auth.getCoins()}</label>
+									<FaCoins size={20} style={{color: '#FFB511'}}></FaCoins> <label style={{color: 'white'}}>{auth.getCoins()}</label>
 								</div>
 								<div className="menu-item" onClick={navigateToProfile}>
 									<FaUser size={20}></FaUser> {auth.getNickname()}

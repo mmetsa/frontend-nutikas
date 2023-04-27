@@ -116,7 +116,7 @@ const menuItemStyle = {
 
 const menuIconStyle = {
 	marginRight: "0.5rem", // Add margin to the right of the icon
-	color: "#1753d3"
+	color: "#0071ce"
 };
 
 export default MainMenu;

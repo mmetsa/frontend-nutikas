@@ -1,0 +1,20 @@
+.points-text {
+    font-weight: bolder;
+    font-size: xxx-large;
+    font-family: "Digital7", serif;
+    color: #FFB511;
+}
+
+.points-text-2 {
+    font-weight: bolder;
+    font-size: xxx-large;
+    font-family: "Digital7", serif;
+    color: #FFB511;
+    width: 100%;
+}
+
+.pointsRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

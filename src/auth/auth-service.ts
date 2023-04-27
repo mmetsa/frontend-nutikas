@@ -141,10 +141,7 @@ class Auth {
 		}
 	}
 	
-	public async fetchWithAuth(
-		input: RequestInfo,
-		init?: RequestInit
-	): Promise<Response> {
+	public async fetchWithAuth(input: RequestInfo, init?: RequestInit): Promise<Response> {
 		const requestInit = init ? { ...init } : {};
 		if (this.tokens) {
 			requestInit.headers = {
@@ -155,34 +152,6 @@ class Auth {
 		}
 		
 		const response = await fetch(input, requestInit);
-		
-		if (response.status === 401 && this.tokens) {
-			try {
-				const refreshResponse = await fetch('https://localhost/api/auth/refresh', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ refreshToken: this.tokens.refreshToken }),
-				});
-				
-				if (refreshResponse.ok) {
-					const refreshedTokens: IAuthTokens = await refreshResponse.json();
-					this.setTokens(refreshedTokens);
-					
-					requestInit.headers = {
-						...requestInit.headers,
-						Authorization: `Bearer ${this.tokens.accessToken}`,
-					};
-					
-					return fetch(input, requestInit);
-				} else {
-					this.removeTokens();
-					throw new Error('Refresh token failed');
-				}
-			} catch (error) {
-				this.removeTokens();
-				throw error;
-			}
-		}
 		
 		return response;
 	}

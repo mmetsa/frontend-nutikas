@@ -1,0 +1,17 @@
+.game-code-input {
+    width: 300px;
+    height: 200px;
+}
+
+.cardBackground {
+    background: #e0f0ff !important;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardBackground:hover {
+    background: #b4d8f6 !important;
+    cursor: pointer;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}

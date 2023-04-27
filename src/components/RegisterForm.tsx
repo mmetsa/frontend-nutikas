@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import Select from "react-select";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Class, School } from "../models/School"
+import { Class, School } from "../school/models/School"
 
 interface RegisterDetails {
 	nickname: string,
