@@ -17,7 +17,7 @@ function GameArea() {
 	}, []);
 	
 	const joinGameByCode = () => {
-		console.log("Join game by code:", gameCode);
+		// TODO: Handle join game by code
 	};
 	
 	const handleGameCode = (code: string) => {

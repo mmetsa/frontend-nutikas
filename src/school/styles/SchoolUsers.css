@@ -1,0 +1,94 @@
+.school-user-card {
+    max-width: 640px;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: rgba(31, 41, 55, 1);
+    padding: 1rem;
+}
+
+.infos {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    grid-gap: 1rem;
+    gap: 1rem;
+}
+
+.image {
+    height: 7.5rem;
+    width: 7rem;
+    border-radius: 0.5rem;
+    background: rgb(118, 36, 194) linear-gradient(to bottom right, #0071ce, #7bb5e5);
+}
+
+.info {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.name {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.function {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgba(156, 163, 175, 1);
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 4px;
+}
+
+.state-value {
+    font-weight: 700;
+    color: rgb(118, 36, 194);
+}
+
+.request {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    transition: all .3s ease;
+}
+
+.request:hover {
+    background-color: #0071ce;
+    color: #fff;
+}
+
+.classNumber {
+    width: 50%;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.extend-button {
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.extend-button.rotated {
+    rotate: -180deg;
+}
+
+.extend-button:hover {
+    color: #0071ce;
+}
+
+.extend-button:active {
+    color: #fff;
+}

@@ -49,8 +49,7 @@ function QuestionsPage() {
 	};
 	const navigate = useNavigate();
 	const handleEdit = (questionSet: QuestionSet) => {
-		// Handle edit button click, e.g. redirect to edit page
-		console.log('Edit question set:', questionSet);
+		// TODO: Handle question set edit
 	};
 	
 	const handleCreate = () => {
@@ -58,8 +57,7 @@ function QuestionsPage() {
 	}
 	
 	const handleDelete = (questionSet: QuestionSet) => {
-		// Handle delete button click, e.g. show confirmation modal
-		console.log('Delete question set:', questionSet);
+		// TODO: Handle question set delete
 	};
 	
 	return (

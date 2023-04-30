@@ -15,7 +15,6 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ icon, text }) => {
 	
 	return (
 		<>
-		{!flipped && (
 			<div className={`MemoryCard ${flipped ? 'flipped' : ''}`} onClick={handleClick}>
 				<div className="memory-card-inner">
 					<div className="memory-card-front">
@@ -30,7 +29,6 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ icon, text }) => {
 					</div>
 				</div>
 			</div>
-		)}
 		</>
 	);
 };

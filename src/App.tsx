@@ -13,6 +13,11 @@ import CreateGame from "./game/pages/CreateGame"
 import RegisterForm from "./components/RegisterForm"
 import ActiveGame from "./game/pages/ActiveGame"
 import Auth from "./auth/auth-service"
+import SchoolCodes from "./school/pages/SchoolCodes"
+import SchoolJoin from "./school/pages/SchoolJoin"
+import RegisterSchoolForm from "./school/pages/RegisterSchoolForm"
+import SchoolUsers from "./school/pages/SchoolUsers"
+import { ApproveUserPage } from "./users/ApproveUserPage"
 function App() {
 	const auth = Auth.getInstance();
 	auth.initialize();
@@ -24,6 +29,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<GameArea/>}/>
 					<Route path="/login" element={<LoginForm/>}/>
+					<Route path="/join" element={<SchoolJoin/>}/>
+					<Route path="/register/school" element={<RegisterSchoolForm/>}/>
 					<Route path="/register" element={<RegisterForm/>}/>
 					<Route path="/game-area" element={<GameArea/>}/>
 					<Route path="/games" element={<GamesPage/>}/>
@@ -31,6 +38,9 @@ function App() {
 					<Route path="/questions" element={<QuestionsPage/>}/>
 					<Route path="/questions/create" element={<CreateOrEditQuestionSet/>}/>
 					<Route path="/game" element={<ActiveGame/>}/>
+					<Route path="/schoolcodes" element={<SchoolCodes/>}/>
+					<Route path="/school/users/approve" element={<ApproveUserPage/>}/>
+					<Route path="/school/users" element={<SchoolUsers/>}/>
 				</Routes>
 			</div>
 		</div>
