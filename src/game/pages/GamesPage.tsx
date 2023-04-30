@@ -3,7 +3,7 @@ import { Button, Card, Container, Image, Stack } from "react-bootstrap"
 import { FaEdit, FaTrash } from "react-icons/fa"
 import { useLocation, useNavigate } from "react-router-dom"
 import { fetchGames } from "../service/game-api"
-import { GameResponse, getGameText, getGameType } from "../models/Game"
+import { GameResponse, getGameText } from "../models/Game"
 import "../../styles/GamesPage.css"
 
 function GamesPage() {
@@ -23,13 +23,13 @@ function GamesPage() {
 				setShowSuccessMessage(false);
 			}, 5000);
 		}
-		
-		async function loadGames() {
-			const fetchedGames = await fetchGames();
-			setGames(fetchedGames);
-		}
 		loadGames();
 	}, []);
+	
+	async function loadGames() {
+		const fetchedGames = await fetchGames();
+		setGames(fetchedGames);
+	}
 	
 	return (
 		<Container>

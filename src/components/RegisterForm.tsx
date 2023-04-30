@@ -2,7 +2,6 @@ import React, { FormEvent, useEffect, useState } from "react"
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import '../styles/LoginForm.css'
 import { useNavigate } from "react-router-dom"
-import Auth, { IAuthTokens } from "../auth/auth-service"
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 
@@ -21,7 +20,6 @@ interface RegisterDetails {
 }
 
 const RegisterForm = () => {
-	const auth = Auth.getInstance();
 	const [registerDetails, setRegisterDetails] = useState<RegisterDetails>(
 		{
 			nickname: "",
@@ -90,7 +88,7 @@ const RegisterForm = () => {
 				throw new Error('Register failed');
 			}
 		} catch (error) {
-			console.log("Error: ", error)
+			// TODO: Handle registration error
 		}
 	};
 	

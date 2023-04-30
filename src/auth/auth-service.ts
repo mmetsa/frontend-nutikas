@@ -1,5 +1,6 @@
 import jwt_decode from "jwt-decode"
 import { Role } from "../util/UserUtil"
+import { ApiError } from "../util/ApiError"
 export interface IAuthTokens {
 	accessToken: string;
 	refreshToken: string;
@@ -47,6 +48,23 @@ class Auth {
 		}
 	}
 	
+	public getSchoolId(): number | null {
+		if (!this.tokens) {
+			return null;
+		}
+		try {
+			const decodedToken: any = jwt_decode(this.tokens.accessToken)
+			const authorities: string[] = decodedToken.authorities;
+			if (authorities && authorities.length > 0) {
+				const firstAuthority = JSON.parse(authorities[0]);
+				return firstAuthority.schoolId;
+			}
+			return null;
+		} catch (error) {
+			return null;
+		}
+	}
+	
 	public getCurrentXp(): number {
 		if (!this.tokens) {
 			return 0;
@@ -67,7 +85,11 @@ class Auth {
 		try {
 			const decodedToken: any = jwt_decode(this.tokens.accessToken)
 			const points: any = decodedToken.points;
-			return JSON.parse(points).coins;
+			const value = JSON.parse(points).coins;
+			if (value === null) {
+				return 0;
+			}
+			return value;
 		} catch (error) {
 			return 0;
 		}
@@ -151,7 +173,30 @@ class Auth {
 			};
 		}
 		
-		const response = await fetch(input, requestInit);
+		let response = await fetch(input, requestInit);
+		
+		if (response.status === 401) {
+			const refreshResponse = await fetch('http://localhost:8080/api/auth/refresh', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					refreshToken: this.tokens?.refreshToken
+				}),
+			});
+			if (refreshResponse.ok) {
+				const data: IAuthTokens = await refreshResponse.json()
+				this.setTokens(data);
+				response = await fetch(input, requestInit);
+				if (response.ok) {
+					return await response.json();
+				}
+				const error: ApiError = await response.json();
+				throw new ApiError(error.message, response.status, []);
+			} else {
+				const error: ApiError = await response.json();
+				throw new ApiError(error.message, response.status, []);
+			}
+		}
 		
 		return response;
 	}

@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 import { Link, useLocation } from "react-router-dom" // Import Link from React Router
-import { FaGamepad, FaUsers, FaTrophy, FaUser, FaWrench, FaPuzzlePiece } from "react-icons/fa"
-import '../styles/MainMenu.css'
+import { FaGamepad, FaPuzzlePiece, FaTrophy, FaUser, FaUsers, FaWrench } from "react-icons/fa"
+import "../styles/MainMenu.css"
 import { Role } from "../util/UserUtil"
 import Auth from "../auth/auth-service"
 
@@ -17,7 +17,6 @@ const MainMenu = () => {
 		{role === Role.STUDENT && (
 			<div style={menuContainerStyle}>
 				<div style={menuHeaderStyle}>MÄNG</div>
-				{/* Menu elements */}
 				<Link to="/game-area" style={menuItemStyle}
 						className={location.pathname === "/game-area" ? "active" : ""}>
 					<FaGamepad size={30} style={menuIconStyle}/>Mänguväljak
@@ -79,6 +78,28 @@ const MainMenu = () => {
 				<Link to="/settings" style={menuItemStyle}
 					className={location.pathname === "/settings" ? "active" : ""}>
 					<FaWrench size={30} style={menuIconStyle}/>Seaded
+				</Link>
+			</div>
+		)}
+		{role === Role.ADMIN && (
+			<div style={menuContainerStyle}>
+				<div style={menuHeaderStyle}>ADMIN PANEL</div>
+				<Link to="/schoolcodes" style={menuItemStyle}
+				      className={location.pathname === "/schoolcodes" ? "active" : ""}>
+					<FaGamepad size={30} style={menuIconStyle}/>Generate School codes
+				</Link>
+			</div>
+		)}
+		{role === Role.SCHOOL_ADMIN && (
+			<div style={menuContainerStyle}>
+				<div style={menuHeaderStyle}>ADMIN</div>
+				<Link to="/school/users" style={menuItemStyle}
+				      className={location.pathname === "/school/users" ? "active" : ""}>
+					<FaGamepad size={30} style={menuIconStyle}/>Kasutajad
+				</Link>
+				<Link to="/school/users/approve" style={menuItemStyle}
+				      className={location.pathname === "/school/users/approve" ? "active" : ""}>
+					<FaGamepad size={30} style={menuIconStyle}/>Kinnitamine
 				</Link>
 			</div>
 		)}

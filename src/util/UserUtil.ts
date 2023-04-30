@@ -7,7 +7,8 @@ export interface User {
 	lastName: string,
 	birthday: Date,
 	coins: number,
-	experience: number
+	experience: number,
+	className?: string,
 	authorities: Authority[]
 }
 

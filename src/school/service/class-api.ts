@@ -4,10 +4,10 @@ import { Class } from "../models/School"
 export async function fetchClasses(): Promise<Class[]> {
 	const auth = Auth.getInstance();
 	try {
-		const response = await auth.fetchWithAuth("http://localhost:8080/api/class/list");
+		const schoolId = auth.getSchoolId() ? auth.getSchoolId()!.toString() : ""
+		const response = await auth.fetchWithAuth("http://localhost:8080/api/class/list?" + new URLSearchParams({schoolId: schoolId}));
 		return await response.json();
 	} catch (error) {
-		console.error(error);
 		return [];
 	}
 }

@@ -1,36 +1,37 @@
-import React, { FormEvent, useState } from "react"
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import React, { FormEvent, useEffect, useState } from "react"
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap"
 import '../styles/LoginForm.css'
-import { useNavigate } from "react-router-dom"
-import Auth, { IAuthTokens } from "../auth/auth-service"
+import { useLocation, useNavigate } from "react-router-dom"
+import { login } from "../auth/auth-api"
+import Auth from "../auth/auth-service"
 const LoginForm = () => {
 	const auth = Auth.getInstance();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [success, setSuccess] = useState<boolean>()
+	const [disabled, setDisabled] = useState<boolean>();
 	const navigate = useNavigate();
+	const location = useLocation();
 	const navigateHome = () => {
 		navigate('/');
 	}
+	
+	useEffect(() => {
+		if (location.state && location.state.success) {
+			setSuccess(true);
+			setTimeout(() => setSuccess(false), 5000);
+		}
+	}, [])
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 		try {
-			const data = await fetch('http://localhost:8080/api/auth/login', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					nickname: username,
-					password: password,
-				}),
-			});
-			if (data.ok) {
-				const tokens: IAuthTokens = await data.json();
-				auth.setTokens(tokens);
-				navigateHome();
-			} else {
-				throw new Error('Login failed');
+			const data = await login(username, password);
+			auth.setTokens(data);
+			navigateHome();
+		} catch (error: any) {
+			if (error.status === 403) {
+				setDisabled(true);
 			}
-		} catch (error) {
-			console.log("Error: ", error)
 		}
 	};
 	
@@ -39,6 +40,7 @@ const LoginForm = () => {
 			<Container>
 				<Row className="justify-content-md-center">
 					<Col md={6}>
+						{success && (<Alert className="alert-success">Edukalt registreeritud!</Alert>)}
 						<h1 className="text-center">Logi sisse</h1>
 						<Form onSubmit={handleSubmit}>
 							<Form.Group controlId="formBasicEmail">
@@ -63,6 +65,12 @@ const LoginForm = () => {
 							<Button variant="primary" type="submit" size="lg" className="mt-3">
 								Logi sisse
 							</Button>
+							{disabled && (
+								<Alert className="alert-danger mt-1">
+									Sinu kasutaja pole veel aktiveeritud!<br/>
+									Sinu kasutaja saab aktiveerida õpetaja
+								</Alert>
+							)}
 						</Form>
 					</Col>
 				</Row>
