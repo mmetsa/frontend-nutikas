@@ -3,7 +3,7 @@ import Auth from "../../auth/auth-service"
 
 export const fetchQuestionSets = async(): Promise<QuestionSet[]> => {
 	const auth = Auth.getInstance();
-	const response = await auth.fetchWithAuth(`http://localhost:8080/api/questionset/${auth.getUserId()}`)
+	const response = await auth.fetchWithAuth(`/api/questionset/${auth.getUserId()}`)
 	
 	if (response.ok) {
 		return await response.json();
@@ -28,7 +28,7 @@ export const postQuestionSet = async (questions: Question[], name: string, visib
 		questions: questionsRequest,
 		visibility: visibility
 	};
-	const response = await auth.fetchWithAuth(`http://localhost:8080/api/questionset/create`, {
+	const response = await auth.fetchWithAuth(`/api/questionset/create`, {
 		method: 'POST',
 		body: JSON.stringify(request)
 	});

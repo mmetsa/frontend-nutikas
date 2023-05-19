@@ -2,7 +2,8 @@ import { IAuthTokens } from "./auth-service"
 import { ApiError } from "../util/ApiError"
 
 export async function login(nickname: string, password: string): Promise<IAuthTokens> {
-	const response = await fetch('http://localhost:8080/api/auth/login', {
+	const baseUrl = process.env.REACT_APP_API_URL;
+	const response = await fetch(baseUrl + '/api/auth/login', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({

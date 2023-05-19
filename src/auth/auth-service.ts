@@ -1,12 +1,14 @@
 import jwt_decode from "jwt-decode"
 import { Role } from "../util/UserUtil"
 import { ApiError } from "../util/ApiError"
+import { type } from "os"
 export interface IAuthTokens {
 	accessToken: string;
 	refreshToken: string;
 }
 
 class Auth {
+	private baseUrl = process.env.REACT_APP_API_URL;
 	private static instance: Auth;
 	private tokens: IAuthTokens | null = null;
 	
@@ -164,6 +166,9 @@ class Auth {
 	}
 	
 	public async fetchWithAuth(input: RequestInfo, init?: RequestInit): Promise<Response> {
+		if (typeof input === "string") {
+			input = this.baseUrl + input;
+		}
 		const requestInit = init ? { ...init } : {};
 		if (this.tokens) {
 			requestInit.headers = {
@@ -176,7 +181,7 @@ class Auth {
 		let response = await fetch(input, requestInit);
 		
 		if (response.status === 401) {
-			const refreshResponse = await fetch('http://localhost:8080/api/auth/refresh', {
+			const refreshResponse = await fetch(this.baseUrl + '/api/auth/refresh', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({

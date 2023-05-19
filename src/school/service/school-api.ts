@@ -5,7 +5,7 @@ import { ApiError } from "../../util/ApiError"
 export async function fetchCodes(amount: number): Promise<string[]> {
 	const auth = Auth.getInstance();
 	try {
-		const response = await auth.fetchWithAuth("http://localhost:8080/api/school/codes?" + new URLSearchParams({amount: amount.toString()}), {
+		const response = await auth.fetchWithAuth("/api/school/codes?" + new URLSearchParams({amount: amount.toString()}), {
 			method: 'POST'
 		});
 		return await response.json();
@@ -16,14 +16,16 @@ export async function fetchCodes(amount: number): Promise<string[]> {
 }
 
 export async function validateCode(code: string): Promise<boolean> {
-	const response = await fetch("http://localhost:8080/api/school/code/validate?" + new URLSearchParams({code: code}), {
+	const baseUrl = process.env.REACT_APP_API_URL;
+	const response = await fetch(baseUrl + "/api/school/code/validate?" + new URLSearchParams({code: code}), {
 		method: 'POST'
 	});
 	return response.ok;
 }
 
 export async function createSchool(request: RegisterSchool): Promise<void> {
-	const response = await fetch("http://localhost:8080/api/school/create", {
+	const baseUrl = process.env.REACT_APP_API_URL;
+	const response = await fetch(baseUrl + "/api/school/create", {
 		headers: {
 			"Content-Type": "application/json"
 		},

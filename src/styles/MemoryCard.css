@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.card-answered {
+    display: none;
+}
+
 .memory-card-inner {
     position: absolute;
     top: 0;

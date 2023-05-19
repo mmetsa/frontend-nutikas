@@ -37,7 +37,7 @@ function App() {
 					<Route path="/games/create" element={<CreateGame/>}/>
 					<Route path="/questions" element={<QuestionsPage/>}/>
 					<Route path="/questions/create" element={<CreateOrEditQuestionSet/>}/>
-					<Route path="/game" element={<ActiveGame/>}/>
+					<Route path="/game/*" element={<ActiveGame/>}/>
 					<Route path="/schoolcodes" element={<SchoolCodes/>}/>
 					<Route path="/school/users/approve" element={<ApproveUserPage/>}/>
 					<Route path="/school/users" element={<SchoolUsers/>}/>
