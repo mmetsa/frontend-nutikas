@@ -112,7 +112,6 @@ function ActiveGame() {
 							.filter((c) => c.clicked)
 							.forEach((c) => (c.answered = true));
 						gameState.players[0].score += 100;
-						setClickedCards([...clickedCardIds, id])
 						setGameState({...newState});
 					}, 1000);
 				}
