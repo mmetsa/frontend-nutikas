@@ -6,7 +6,7 @@ import { FaStar } from "react-icons/fa"
 import { GameState } from "../models/GameState"
 
 function MemoryCardGrid(
-	{ gameState, handleCardClick }: { gameState: GameState, handleCardClick: (id: number) => void }
+	{ gameState, clickedCards, handleCardClick }: { gameState: GameState, clickedCards: number[], handleCardClick: (id: number) => void }
 ) {
 	
 	const renderCards = () => {
@@ -14,7 +14,7 @@ function MemoryCardGrid(
 			<Col xs={6} sm={4} md={2} lg={3} xl={2} key={index} className="resized-card">
 				<MemoryCard
 					id={card.id}
-					flipped={card.clicked}
+					flipped={clickedCards.includes(card.id) || card.clicked}
 					answered={card.answered}
 					text={card.text}
 					icon={<FaStar size={100}/>}

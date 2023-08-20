@@ -1,16 +1,39 @@
 import jwt_decode from "jwt-decode"
 import { Role } from "../util/UserUtil"
 import { ApiError } from "../util/ApiError"
-import { type } from "os"
 export interface IAuthTokens {
 	accessToken: string;
 	refreshToken: string;
+}
+
+export interface IToken {
+	authorities: string[];
+	exp: number;
+	iat: number;
+	points: string;
+	sub: string;
+}
+
+export interface IAuthority {
+	schoolId: number;
+	userId: number;
+	role: Role;
+	disabled: boolean;
+}
+
+export interface IUserData {
+	coins: number;
+	experience: number;
+	level: number;
+	experienceLeft: number;
+	startingXp: number;
 }
 
 class Auth {
 	private baseUrl = process.env.REACT_APP_API_URL;
 	private static instance: Auth;
 	private tokens: IAuthTokens | null = null;
+	private userData: IUserData | null = null;
 	
 	public static getInstance(): Auth {
 		if (!Auth.instance) {
@@ -19,14 +42,20 @@ class Auth {
 		return Auth.instance;
 	}
 	
-	public setTokens(tokens: IAuthTokens) {
-		this.tokens = tokens;
-		localStorage.setItem('tokens', JSON.stringify(tokens));
+	public getUserData() {
+		return this.userData;
 	}
 	
-	public removeTokens() {
+	public logout() {
 		this.tokens = null;
-		localStorage.removeItem('tokens');
+		localStorage.removeItem("tokens")
+	}
+	
+	public setTokens(tokens: IAuthTokens) {
+		this.tokens = tokens;
+		const decodedToken: IToken = jwt_decode(this.tokens.accessToken);
+		this.userData = JSON.parse(decodedToken.points);
+		localStorage.setItem('tokens', JSON.stringify(tokens));
 	}
 	
 	public isAuthenticated(): boolean {
@@ -38,10 +67,10 @@ class Auth {
 			return null;
 		}
 		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
+			const decodedToken: IToken = jwt_decode(this.tokens.accessToken)
 			const authorities: string[] = decodedToken.authorities;
 			if (authorities && authorities.length > 0) {
-				const firstAuthority = JSON.parse(authorities[0]);
+				const firstAuthority: IAuthority = JSON.parse(authorities[0]);
 				return firstAuthority.userId;
 			}
 			return null;
@@ -55,10 +84,10 @@ class Auth {
 			return null;
 		}
 		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
+			const decodedToken: IToken = jwt_decode(this.tokens.accessToken)
 			const authorities: string[] = decodedToken.authorities;
 			if (authorities && authorities.length > 0) {
-				const firstAuthority = JSON.parse(authorities[0]);
+				const firstAuthority: IAuthority = JSON.parse(authorities[0]);
 				return firstAuthority.schoolId;
 			}
 			return null;
@@ -67,84 +96,15 @@ class Auth {
 		}
 	}
 	
-	public getCurrentXp(): number {
-		if (!this.tokens) {
-			return 0;
-		}
-		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
-			const points: any = decodedToken.points;
-			return JSON.parse(points).experience;
-		} catch (error) {
-			return 0;
-		}
-	}
-	
-	public getCoins(): number {
-		if (!this.tokens) {
-			return 0;
-		}
-		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
-			const points: any = decodedToken.points;
-			const value = JSON.parse(points).coins;
-			if (value === null) {
-				return 0;
-			}
-			return value;
-		} catch (error) {
-			return 0;
-		}
-	}
-	
-	public getNextLevelXp(): number {
-		if (!this.tokens) {
-			return 0;
-		}
-		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
-			const points: any = decodedToken.points;
-			return JSON.parse(points).experienceLeft;
-		} catch (error) {
-			return 0;
-		}
-	}
-	
-	public getStartingXp(): number {
-		if (!this.tokens) {
-			return 0;
-		}
-		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
-			const points: any = decodedToken.points;
-			return JSON.parse(points).startingXp;
-		} catch (error) {
-			return 0;
-		}
-	}
-	
-	public getCurrentLvl(): number {
-		if (!this.tokens) {
-			return 0;
-		}
-		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
-			const points: any = decodedToken.points;
-			return JSON.parse(points).level;
-		} catch (error) {
-			return 0;
-		}
-	}
-	
 	public getRole(): Role | null {
 		if (!this.tokens) {
 			return null;
 		}
 		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
+			const decodedToken: IToken = jwt_decode(this.tokens.accessToken)
 			const authorities: string[] = decodedToken.authorities;
 			if (authorities && authorities.length > 0) {
-				const firstAuthority = JSON.parse(authorities[0]);
+				const firstAuthority: IAuthority = JSON.parse(authorities[0]);
 				return firstAuthority.role;
 			}
 			return null;
@@ -158,7 +118,7 @@ class Auth {
 			return null;
 		}
 		try {
-			const decodedToken: any = jwt_decode(this.tokens.accessToken)
+			const decodedToken: IToken = jwt_decode(this.tokens.accessToken)
 			return decodedToken.sub;
 		} catch (error) {
 			return null;
