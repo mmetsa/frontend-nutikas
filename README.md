@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# Nutikas Frontend Repository
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Nutikas frontend repository! 
+This private repository is exclusively for developers working on the Nutikas application frontend. 
+This README will provide you with essential information to navigate and contribute to the project effectively.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [About Nutikas](#about-nutikas)
+- [Features](#features)
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Running the Development Server](#running-the-development-server)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## About Nutikas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Nutikas is an educational platform aimed at enhancing interactive learning experiences for students. The frontend of Nutikas is built using React, providing a user-friendly interface for educators and students to engage with educational games and quizzes.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Engaging educational games and quizzes to challenge and entertain students.
+- Customizable game and quiz creation tools for educators to tailor content.
+- Real-time updates and analytics for monitoring student progress and performance.
+- Collaboration features for educators to share and explore educational content.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (recommended version: LTS)
+- npm (included with Node.js)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the private repository:
 
-### `npm run eject`
+   ```bash
+   git clone https://github.com/your-username/nutikas-frontend.git
+    ```
+   
+2. Navigate to the project directory:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    ```bash
+    cd nutikas-frontend
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install the project dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    ```bash
+    npm install
+    ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Running the Development Server
+To run nutikas-frontend locally, you have two options:
 
-## Learn More
+1. Running with npm
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ```bash
+    npm start
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Running the Dockerfile
+
+Inside the nutikas-frontend folder:
+ 
+```bash
+docker build -t nutikas-react .
+```
+
+... and then
+
+```
+docker run -dp 127.0.0.1:3000:3000 nutikas-react
+```
+
+After either step is done, The development server will start, 
+and you can access the application by visiting http://localhost:3000 in your web browser.
+
+### Contributing
+
+This repository is solely for developers working on the Nutikas frontend.
+If you're a collaborator, you can contribute as follows:
+
+1. Create a new branch for your feature or bug fix:
+
+```
+git checkout -b feature/my-new-feature
+```
+
+2. Make your changes, commit them with a clear and concise message.
+3. Push your changes to the repository
+
+```
+git push origin feature/my-new-feature
+```
+
+4. Create a pull request targeting the `master` branch
+
+### Licence
+
+This project is private and confidential, all rights are reserved.
