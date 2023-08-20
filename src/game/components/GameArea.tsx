@@ -4,14 +4,20 @@ import { Card, Button, FormControl, Stack, Container, Row, Col, Image } from "re
 import { GameResponse, getGameText } from "../models/Game"
 import Auth from "../../auth/auth-service"
 import "../../styles/GameArea.css"
+import { GameCard } from "./GameCard"
+import { useStompClient } from "../hooks/useStompClient"
+import { useNavigate } from "react-router-dom"
+import { strict } from "assert"
 
 function GameArea() {
 	const auth = Auth.getInstance();
 	const [games, setGames] = useState<GameResponse[]>([]);
 	const [gameCode, setGameCode] = useState("");
+	const navigate = useNavigate()
+	
 	
 	useEffect(() => {
-		auth.fetchWithAuth("http://localhost:8080/api/game/list/student")
+		auth.fetchWithAuth("/api/game/list/student")
 			.then((response) => response.json())
 			.then((data) => setGames(data));
 	}, []);
@@ -24,6 +30,16 @@ function GameArea() {
 		if (code.length <= 7) {
 			setGameCode(code);
 		}
+	}
+	
+	const handlePlayGame = async (id: number) => {
+		console.log("Play clicked: " + id)
+		const response = await auth.fetchWithAuth("/api/game/join?" + new URLSearchParams({id: id.toString()}), {
+			method: "POST"
+		});
+		const uuid = await response.json()
+		console.log(uuid)
+		navigate("/game/" + uuid, {state: {uuid: uuid}});
 	}
 	
 	return (
@@ -49,43 +65,20 @@ function GameArea() {
 			<Stack gap={3} className="mt-5">
 				<h2 className="mb-0">SINU KLASSI MÄNGUD</h2>
 				<hr className="m-0"/>
-				{games.map((game) => {
-					const isDisabled = new Date() < new Date(game.startingTime ?? new Date());
-					return (
-						<Card key={game.id} className="flex-row cardBackground">
-							<Image
-								src="https://cdn-icons-png.flaticon.com/512/103/103228.png"
-								width="100"
-								height="100"
-								alt="game-type"
-								className="p-3"
-							/>
-							<Card.Body>
-								<Card.Title>{game.name}</Card.Title>
-									<Row>
-										<Col>
-											<Card.Text><strong>Tüüp:</strong> {getGameText(game.type)}</Card.Text>
-										</Col>
-										<Col>
-											<Card.Text><strong>Mängu aeg: </strong>{game.time ? game.time + " minutit": "Lõputu"}</Card.Text>
-										</Col>
-									</Row>
-								<Row>
-									{game.startingTime && isDisabled && (
-										<Col>
-											<strong>Mäng avatakse:</strong> {new Date(game.startingTime).toLocaleDateString("et-EE", {day: "2-digit", month: "2-digit", year: "numeric"})}
-										</Col>
-									)}
-									{game.endingTime && isDisabled && (
-										<Col>
-											<strong>Mäng suletakse:</strong> {new Date(game.endingTime).toLocaleDateString("et-EE", {day: "2-digit", month: "2-digit", year: "numeric"})}
-										</Col>
-									)}
-								</Row>
-							</Card.Body>
-						</Card>
-					);
-				})}
+				<Row>
+					{games.map((game) => {
+						const isDisabled = new Date() < new Date(game.startingTime ?? new Date());
+						return (
+							<Col key={game.id} className="col-lg-4 col-md-12">
+								<GameCard
+									disabled={isDisabled}
+									game={game}
+									playButton={() => handlePlayGame(game.id)}
+								/>
+							</Col>
+						);
+					})}
+				</Row>
 			</Stack>
 		</Container>
 	);

@@ -4,7 +4,7 @@ import Auth from "../../auth/auth-service"
 export async function createGame(game: Game): Promise<Response> {
 	const auth = Auth.getInstance();
 	try {
-		const response = await auth.fetchWithAuth("http://localhost:8080/api/game/create", {
+		const response = await auth.fetchWithAuth("/api/game/create", {
 			method: 'POST',
 			body: JSON.stringify(game)
 		});
@@ -17,7 +17,7 @@ export async function createGame(game: Game): Promise<Response> {
 
 export async function fetchGames(): Promise<GameResponse[]> {
 	const auth = Auth.getInstance();
-	const response = await auth.fetchWithAuth("http://localhost:8080/api/game/list");
+	const response = await auth.fetchWithAuth("/api/game/list");
 	const games = await response.json();
 	return games;
 }

@@ -1,21 +1,24 @@
-import React, { useState } from "react"
+import React from "react"
 import '../../styles/MemoryCard.css';
 
 interface MemoryCardProps {
+	id: number;
+	flipped: boolean;
+	answered: boolean;
 	icon: JSX.Element;
-	text: string;
+	text: string | null;
+	handleCardClick: (id: number) => void;
 }
 
-const MemoryCard: React.FC<MemoryCardProps> = ({ icon, text }) => {
-	const [flipped, setFlipped] = useState(false);
+const MemoryCard: React.FC<MemoryCardProps> = ({ answered: answered, id: id, flipped: flipped, icon, text: text, handleCardClick: handleCardClick }) => {
 	
 	const handleClick = () => {
-		setFlipped(!flipped);
+		handleCardClick(id);
 	};
 	
 	return (
 		<>
-			<div className={`MemoryCard ${flipped ? 'flipped' : ''}`} onClick={handleClick}>
+			<div className={`MemoryCard ${flipped ? 'flipped' : ''} ${answered ? 'card-answered' : ''}`} onClick={handleClick}>
 				<div className="memory-card-inner">
 					<div className="memory-card-front">
 						<div className="memory-card-content">
@@ -24,7 +27,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ icon, text }) => {
 					</div>
 					<div className="memory-card-back">
 						<div className="memory-card-content">
-							{text}
+							{text ? text : ""}
 						</div>
 					</div>
 				</div>

@@ -3,13 +3,23 @@ import { Container, Row, Col } from 'react-bootstrap';
 import MemoryCard from './MemoryCard';
 import '../../styles/MemoryCardGrid.css';
 import { FaStar } from "react-icons/fa"
+import { GameState } from "../models/GameState"
 
-function MemoryCardGrid({ cards }: { cards: string[] }) {
+function MemoryCardGrid(
+	{ gameState, clickedCards, handleCardClick }: { gameState: GameState, clickedCards: number[], handleCardClick: (id: number) => void }
+) {
 	
 	const renderCards = () => {
-		return cards.map((card, index) => (
+		return gameState.players[0].cards.map((card, index) => (
 			<Col xs={6} sm={4} md={2} lg={3} xl={2} key={index} className="resized-card">
-				<MemoryCard text={card} icon={<FaStar size={100}/>} />
+				<MemoryCard
+					id={card.id}
+					flipped={clickedCards.includes(card.id) || card.clicked}
+					answered={card.answered}
+					text={card.text}
+					icon={<FaStar size={100}/>}
+					handleCardClick={() => handleCardClick(card.id)}
+				/>
 			</Col>
 		));
 	};

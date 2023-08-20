@@ -1,0 +1,64 @@
+.main-card {
+    background-color: #F5EFED;
+    padding: 1em 1em 1.1em;
+    border-radius: 15px;
+    margin: 1em;
+    max-width: 400px;
+    box-shadow: 0 187px 75px rgba(0, 0, 0, 0.01), 0 105px 63px rgba(0, 0, 0, 0.05), 0 47px 47px rgba(0, 0, 0, 0.09), 0 12px 26px rgba(0, 0, 0, 0.1), 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.game-type-icon {
+    color: #0071CE;
+    width: 30%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.loader {
+    display: flex;
+    flex-direction: row;
+    padding-left: 1em;
+    padding-right: 1em;
+    justify-content: left;
+    border-radius: 10px;
+}
+
+.card-heading {
+    max-width: 100%;
+    margin-bottom: 1em;
+}
+
+.heading {
+    font-size: x-large;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.game-property {
+    color: #0071ce;
+    position: relative;
+    margin-right: 1em;
+    height: 50px;
+    width: 50px;
+}
+
+.song {
+    color: black;
+}
+
+.artist {
+    font-size: 0.6em;
+}
+
+.type-name {
+    font-weight: bold;
+    margin-bottom: 0;
+    color: black;
+}
+
+.start-game-section {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

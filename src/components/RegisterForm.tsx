@@ -41,7 +41,8 @@ const RegisterForm = () => {
 	useEffect(() => {
 		const fetchSchools = async () => {
 			try {
-				const response = await fetch("http://localhost:8080/api/school/list", {
+				const baseUrl = process.env.REACT_APP_API_URL;
+				const response = await fetch(baseUrl + "/api/school/list", {
 					headers: {
 						"Content-Type": "application/json"
 					}
@@ -77,7 +78,8 @@ const RegisterForm = () => {
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 		try {
-			const data = await fetch('http://localhost:8080/api/auth/register', {
+			const baseUrl = process.env.REACT_APP_API_URL;
+			const data = await fetch(baseUrl + '/api/auth/register', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(registerDetails),
